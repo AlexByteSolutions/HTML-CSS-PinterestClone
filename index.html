@@ -13,13 +13,19 @@
 
 <body>
     <nav>
-        <a href="#" class="active">All
-            <span></span>
-        </a>
-        <a href="#">Characters</a>
-        <a href="#">Cars</a>
-        <a href="#">Nature</a>
-        <a href="#">People</a>
+        <div class="nav-links">
+            <a href="#" class="active">All
+                <span></span>
+            </a>
+            <a href="#">Characters</a>
+            <a href="#">Cars</a>
+            <a href="#">Nature</a>
+            <a href="#">People</a>
+        </div>
+        <button id="theme-toggle" class="theme-toggle" aria-label="Toggle light/dark mode">
+            <ion-icon name="sunny" class="sun-icon"></ion-icon>
+            <ion-icon name="moon" class="moon-icon"></ion-icon>
+        </button>
     </nav>
 
     <main class="gallery">
@@ -36,5 +42,6 @@
         <ion-icon name="chatbubble-ellipses"></ion-icon>
         <img src="https://avatars.githubusercontent.com/u/159472942?v=4" alt="">
     </footer>
+    <script src="./script.js"></script>
 </body>
 </html>
