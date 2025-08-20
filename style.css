@@ -1,10 +1,28 @@
 /* CSS Atualizado */
 :root {
   --primary-color: #e60023;
+}
+
+/* Dark Mode Variables (default) */
+.dark-mode {
   --background: #0f0f0f;
   --surface: #1a1a1a;
   --text-primary: #ffffff;
   --text-secondary: #a8a8a8;
+  --nav-background: rgba(15, 15, 15, 0.95);
+  --border-color: rgba(255, 255, 255, 0.1);
+  --shadow: rgba(0, 0, 0, 0.4);
+}
+
+/* Light Mode Variables */
+.light-mode {
+  --background: #ffffff;
+  --surface: #f8f9fa;
+  --text-primary: #333333;
+  --text-secondary: #666666;
+  --nav-background: rgba(255, 255, 255, 0.95);
+  --border-color: rgba(0, 0, 0, 0.1);
+  --shadow: rgba(0, 0, 0, 0.1);
 }
 
 * {
@@ -21,12 +39,32 @@ body {
 }
 
 nav {
-  display: flex;
-  gap: 24px;
-  padding: 16px 24px;
-  background: rgba(15, 15, 15, 0.95);
-  backdrop-filter: blur(10px);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  /* Removido display, justify-content, align-items, padding, position, z-index, border-bottom, background, backdrop-filter */
+  /* Utilizado utilitários Bootstrap no HTML */
+}
+
+.nav-links {
+  /* Removido display, gap */
+  /* Utilizado utilitários Bootstrap no HTML */
+}
+
+.theme-toggle {
+  /* Removido border, border-radius, padding, display, align-items, justify-content, width, height */
+  /* Utilizado utilitários e btn Bootstrap no HTML */
+}
+
+.theme-toggle:hover {
+  /* Removido border-color e transform para evitar conflito com Bootstrap */
+}
+
+.theme-toggle ion-icon {
+  font-size: 20px;
+  color: var(--text-primary);
+  transition: all 0.3s ease;
+}
+
+.moon-icon {
+  display: none;
 }
 
 nav a {
@@ -51,21 +89,24 @@ nav a span {
 }
 
 .gallery {
-  columns: 1;
-  column-gap: 16px;
-  padding: 16px;
+  /* Removido padding, margin */
+  /* Utilizado utilitários Bootstrap no HTML */
   max-width: 1600px;
-  margin: 0 auto;
+}
+
+.gallery .container-fluid {
+  padding: 0;
 }
 
 .gallery img {
-  width: 100%;
-  border-radius: 16px;
-  margin-bottom: 16px;
+  /* Removido width, border-radius, margin-bottom */
+  /* Utilizado utilitários Bootstrap no HTML */
   transition: transform 0.3s ease;
   cursor: zoom-in;
   background: var(--surface);
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+  box-shadow: 0 8px 32px var(--shadow);
+  position: relative;
+  overflow: hidden;
 }
 
 .gallery img:hover {
@@ -73,12 +114,9 @@ nav a span {
 }
 
 footer {
+  /* Removido display, justify-content, align-items, gap, padding, position, border-top, background, backdrop-filter */
+  /* Utilizado utilitários Bootstrap no HTML */
   height: 72px;
-  gap: 40px;
-  padding: 0 24px;
-  background: rgba(15, 15, 15, 0.95);
-  backdrop-filter: blur(10px);
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 ion-icon {
@@ -92,21 +130,15 @@ ion-icon:hover {
 }
 
 footer img {
-  width: 32px;
-  height: 32px;
-  border: 2px solid var(--text-primary);
-  transition: transform 0.3s ease;
+  /* Removido width, height, border, transition */
+  /* Utilizado utilitários Bootstrap no HTML */
 }
 
 footer img:hover {
-  transform: scale(1.1);
+  /* ...existing code... */
 }
 
 /* Efeito de loading nas imagens */
-.gallery img {
-  position: relative;
-  overflow: hidden;
-}
 
 .gallery img::after {
   content: '';
@@ -117,9 +149,17 @@ footer img:hover {
   height: 100%;
   background: linear-gradient(120deg,
       transparent 40%,
-      rgba(255, 255, 255, 0.05) 50%,
+      var(--shimmer-color) 50%,
       transparent 60%);
   animation: shimmer 1.5s infinite;
+}
+
+.dark-mode .gallery img::after {
+  --shimmer-color: rgba(255, 255, 255, 0.05);
+}
+
+.light-mode .gallery img::after {
+  --shimmer-color: rgba(0, 0, 0, 0.05);
 }
 
 @keyframes shimmer {
@@ -137,30 +177,18 @@ footer img:hover {
 
 /* Media Queries */
 @media (min-width: 640px) {
-  .gallery {
-      columns: 2;
-  }
-  
   nav {
       padding: 16px 32px;
   }
 }
 
 @media (min-width: 768px) {
-  .gallery {
-      columns: 3;
-  }
-  
   nav a {
       font-size: 17px;
   }
 }
 
 @media (min-width: 1024px) {
-  .gallery {
-      columns: 4;
-  }
-  
   .gallery img {
       border-radius: 20px;
   }
