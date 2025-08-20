@@ -109,11 +109,13 @@ nav a span {
 }
 
 .gallery {
-  columns: 1;
-  column-gap: 16px;
   padding: 16px;
   max-width: 1600px;
   margin: 0 auto;
+}
+
+.gallery .container-fluid {
+  padding: 0;
 }
 
 .gallery img {
@@ -124,6 +126,8 @@ nav a span {
   cursor: zoom-in;
   background: var(--surface);
   box-shadow: 0 8px 32px var(--shadow);
+  position: relative;
+  overflow: hidden;
 }
 
 .gallery img:hover {
@@ -168,10 +172,6 @@ footer img:hover {
 }
 
 /* Efeito de loading nas imagens */
-.gallery img {
-  position: relative;
-  overflow: hidden;
-}
 
 .gallery img::after {
   content: '';
@@ -210,30 +210,18 @@ footer img:hover {
 
 /* Media Queries */
 @media (min-width: 640px) {
-  .gallery {
-      columns: 2;
-  }
-  
   nav {
       padding: 16px 32px;
   }
 }
 
 @media (min-width: 768px) {
-  .gallery {
-      columns: 3;
-  }
-  
   nav a {
       font-size: 17px;
   }
 }
 
 @media (min-width: 1024px) {
-  .gallery {
-      columns: 4;
-  }
-  
   .gallery img {
       border-radius: 20px;
   }
