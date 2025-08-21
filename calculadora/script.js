@@ -42,3 +42,7 @@ if (typeof document !== 'undefined') {
         });
     });
 }
+
+if (typeof module !== 'undefined' && typeof module.exports !== 'undefined') {
+    module.exports = { calculate };
+}
