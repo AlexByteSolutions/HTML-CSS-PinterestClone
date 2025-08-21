@@ -1,0 +1,30 @@
+name: Calculadora
+
+on:
+  workflow_dispatch:
+    inputs:
+      operacao:
+        description: 'Operação (soma, subtrai, multiplica, divide)'
+        required: true
+        default: 'soma'
+      num1:
+        description: 'Primeiro número'
+        required: true
+        default: '0'
+      num2:
+        description: 'Segundo número'
+        required: true
+        default: '0'
+
+jobs:
+  calcular:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Instalar Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.x'
+      - name: Executar calculadora
+        run: |
+          python c:/Users/alexb/Downloads/Documents/Testes/calculadora.py ${{ github.event.inputs.operacao }} ${{ github.event.inputs.num1 }} ${{ github.event.inputs.num2 }}
