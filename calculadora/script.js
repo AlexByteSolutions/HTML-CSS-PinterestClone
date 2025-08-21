@@ -30,13 +30,15 @@ function calculate(operation) {
     document.getElementById('resultado').textContent = result;
 }
 
-document.querySelectorAll('a.nav-link').forEach(link => {
-    link.addEventListener('click', event => {
-        event.preventDefault();
-        const targetId = link.getAttribute('href').substring(1);
-        const targetElement = document.getElementById(targetId);
-        if (targetElement) {
-            targetElement.scrollIntoView({ behavior: 'smooth' });
-        }
+if (typeof document !== 'undefined') {
+    document.querySelectorAll('a.nav-link').forEach(link => {
+        link.addEventListener('click', event => {
+            event.preventDefault();
+            const targetId = link.getAttribute('href').substring(1);
+            const targetElement = document.getElementById(targetId);
+            if (targetElement) {
+                targetElement.scrollIntoView({ behavior: 'smooth' });
+            }
+        });
     });
-});
+}
