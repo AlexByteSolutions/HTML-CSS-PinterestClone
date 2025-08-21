@@ -43,6 +43,6 @@ if (typeof document !== 'undefined') {
     });
 }
 
-if (typeof window === 'undefined' && typeof module !== 'undefined' && typeof module.exports !== 'undefined') {
-    module.exports = { calculate };
+if (typeof window === 'undefined' && typeof exports !== 'undefined') {
+    exports.calculate = calculate;
 }

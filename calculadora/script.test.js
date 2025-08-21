@@ -1,9 +1,4 @@
-const fs = require('fs');
-const path = require('path');
-
-// Carrega o código da calculadora no ambiente JSDOM
-const scriptCode = fs.readFileSync(path.resolve(__dirname, 'script.js'), 'utf8');
-eval(scriptCode);
+const { calculate } = require('./script');
 
 describe('Calculadora', () => {
     beforeEach(() => {
