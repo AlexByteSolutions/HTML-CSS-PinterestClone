@@ -25,3 +25,16 @@ button {
     color: #e60023;
     font-weight: bold;
 }
+
+.navbar {
+    margin-bottom: 20px;
+}
+
+.nav-link {
+    color: #333;
+    font-weight: bold;
+}
+
+.nav-link:hover {
+    color: #e60023;
+}
