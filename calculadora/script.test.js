@@ -51,5 +51,3 @@ describe('Calculadora', () => {
         alertMock.mockRestore();
     });
 });
-    });
-});
