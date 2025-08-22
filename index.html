@@ -29,7 +29,7 @@
 
     <main class="gallery pt-4 pb-5">
         <div class="container-fluid">
-            <div class="row g-3">
+            <div class="row g-3" data-masonry='{"percentPosition": true }'>
                 <div class="col-12 col-sm-6 col-md-4 col-lg-3">
                     <img src="https://th.bing.com/th/id/R.4a422edd4ea7f3e1866b823a387dc56b?rik=owxZGEcSJcsklw&pid=ImgRaw&r=0" alt="" class="img-fluid w-100 rounded-4 shadow-sm">
                 </div>
@@ -106,6 +106,19 @@
         tooltipTriggerList.map(function (tooltipTriggerEl) {
           return new bootstrap.Tooltip(tooltipTriggerEl);
         });
+      });
+    </script>
+    <!-- Adicione o Masonry JS do Bootstrap antes do fechamento do body -->
+    <script src="https://cdn.jsdelivr.net/npm/masonry-layout@4.2.2/dist/masonry.pkgd.min.js"></script>
+    <script>
+      document.addEventListener('DOMContentLoaded', function () {
+        var elem = document.querySelector('.row[data-masonry]');
+        if (elem) {
+          new Masonry(elem, {
+            itemSelector: '.col-12, .col-sm-6, .col-md-4, .col-lg-3',
+            percentPosition: true
+          });
+        }
       });
     </script>
 </body>
