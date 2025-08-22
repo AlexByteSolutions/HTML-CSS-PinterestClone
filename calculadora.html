@@ -20,39 +20,73 @@
     </nav>
     <main class="container pt-5">
         <div class="row justify-content-center align-items-center" style="min-height: 80vh;">
-            <div class="col-12 col-sm-10 col-md-8 col-lg-6">
+            <div class="col-12 col-sm-10 col-md-8 col-lg-5">
                 <div class="card shadow-lg rounded-4">
                     <div class="card-body p-4">
                         <h2 class="mb-4 text-center">
                             <ion-icon name="calculator-outline" style="font-size:2rem;vertical-align:middle;"></ion-icon>
                             Calculadora
                         </h2>
-                        <form id="calc-form" class="mb-3">
-                            <div class="mb-3">
-                                <label for="operacao" class="form-label">Operação</label>
-                                <select id="operacao" class="form-select">
-                                    <option value="soma">Somar (+)</option>
-                                    <option value="subtrai">Subtrair (-)</option>
-                                    <option value="multiplica">Multiplicar (×)</option>
-                                    <option value="divide">Dividir (÷)</option>
-                                </select>
+                        <div class="mb-3">
+                            <div id="calc-display" class="form-control text-end fs-3 fw-bold mb-2" style="height:60px; background:var(--surface);"></div>
+                        </div>
+                        <div class="row g-2">
+                            <div class="col-3">
+                                <button type="button" class="btn btn-light w-100 py-3 btn-calc" data-value="7">7</button>
                             </div>
-                            <div class="row mb-3">
-                                <div class="col-12 col-md-6 mb-3 mb-md-0">
-                                    <label for="num1" class="form-label">Número 1</label>
-                                    <input type="number" id="num1" class="form-control" required placeholder="Digite o primeiro número">
-                                </div>
-                                <div class="col-12 col-md-6">
-                                    <label for="num2" class="form-label">Número 2</label>
-                                    <input type="number" id="num2" class="form-control" required placeholder="Digite o segundo número">
-                                </div>
+                            <div class="col-3">
+                                <button type="button" class="btn btn-light w-100 py-3 btn-calc" data-value="8">8</button>
                             </div>
-                            <button type="submit" class="btn btn-primary w-100 d-flex align-items-center justify-content-center gap-2">
-                                <ion-icon name="play-outline"></ion-icon>
-                                Calcular
-                            </button>
-                        </form>
-                        <div id="resultado" class="alert alert-info d-none text-center fw-bold"></div>
+                            <div class="col-3">
+                                <button type="button" class="btn btn-light w-100 py-3 btn-calc" data-value="9">9</button>
+                            </div>
+                            <div class="col-3">
+                                <button type="button" class="btn btn-warning w-100 py-3 btn-calc" data-value="/">÷</button>
+                            </div>
+                            <div class="col-3">
+                                <button type="button" class="btn btn-light w-100 py-3 btn-calc" data-value="4">4</button>
+                            </div>
+                            <div class="col-3">
+                                <button type="button" class="btn btn-light w-100 py-3 btn-calc" data-value="5">5</button>
+                            </div>
+                            <div class="col-3">
+                                <button type="button" class="btn btn-light w-100 py-3 btn-calc" data-value="6">6</button>
+                            </div>
+                            <div class="col-3">
+                                <button type="button" class="btn btn-warning w-100 py-3 btn-calc" data-value="*">×</button>
+                            </div>
+                            <div class="col-3">
+                                <button type="button" class="btn btn-light w-100 py-3 btn-calc" data-value="1">1</button>
+                            </div>
+                            <div class="col-3">
+                                <button type="button" class="btn btn-light w-100 py-3 btn-calc" data-value="2">2</button>
+                            </div>
+                            <div class="col-3">
+                                <button type="button" class="btn btn-light w-100 py-3 btn-calc" data-value="3">3</button>
+                            </div>
+                            <div class="col-3">
+                                <button type="button" class="btn btn-warning w-100 py-3 btn-calc" data-value="-">−</button>
+                            </div>
+                            <div class="col-3">
+                                <button type="button" class="btn btn-secondary w-100 py-3 btn-calc" data-value="C">C</button>
+                            </div>
+                            <div class="col-3">
+                                <button type="button" class="btn btn-light w-100 py-3 btn-calc" data-value="0">0</button>
+                            </div>
+                            <div class="col-3">
+                                <button type="button" class="btn btn-light w-100 py-3 btn-calc" data-value=".">.</button>
+                            </div>
+                            <div class="col-3">
+                                <button type="button" class="btn btn-warning w-100 py-3 btn-calc" data-value="+">+</button>
+                            </div>
+                            <div class="col-6 mt-2">
+                                <button type="button" class="btn btn-danger w-100 py-3 btn-calc" data-value="DEL">DEL</button>
+                            </div>
+                            <div class="col-6 mt-2">
+                                <button type="button" class="btn btn-success w-100 py-3 btn-calc" data-value="=">=</button>
+                            </div>
+                        </div>
+                        <div id="resultado" class="alert alert-info d-none text-center fw-bold mt-3"></div>
                     </div>
                 </div>
             </div>
@@ -60,40 +94,58 @@
     </main>
     <script src="./script.js"></script>
     <script>
-      document.getElementById('calc-form').addEventListener('submit', function(e) {
-        e.preventDefault();
-        const operacao = document.getElementById('operacao').value;
-        const num1 = parseFloat(document.getElementById('num1').value);
-        const num2 = parseFloat(document.getElementById('num2').value);
-        let resultado;
-        if (isNaN(num1) || isNaN(num2)) {
-          resultado = "Os números devem ser válidos.";
-        } else {
-          switch (operacao) {
-            case "soma":
-              resultado = num1 + num2;
-              break;
-            case "subtrai":
-              resultado = num1 - num2;
-              break;
-            case "multiplica":
-              resultado = num1 * num2;
-              break;
-            case "divide":
-              if (num2 === 0) {
-                resultado = "Erro: divisão por zero.";
-              } else {
-                resultado = num1 / num2;
-              }
-              break;
-            default:
-              resultado = "Operação inválida.";
-          }
-        }
-        const resultadoDiv = document.getElementById('resultado');
-        resultadoDiv.textContent = "Resultado: " + resultado;
+      // Calculadora lógica
+      let calcDisplay = document.getElementById('calc-display');
+      let resultadoDiv = document.getElementById('resultado');
+      let current = '';
+      let lastResult = '';
+
+      function updateDisplay() {
+        calcDisplay.textContent = current || '0';
+      }
+
+      function showResult(res) {
+        resultadoDiv.textContent = "Resultado: " + res;
         resultadoDiv.classList.remove('d-none');
+      }
+
+      document.querySelectorAll('.btn-calc').forEach(btn => {
+        btn.addEventListener('click', function() {
+          const val = this.getAttribute('data-value');
+          resultadoDiv.classList.add('d-none');
+          if (val === 'C') {
+            current = '';
+            lastResult = '';
+            updateDisplay();
+          } else if (val === 'DEL') {
+            current = current.slice(0, -1);
+            updateDisplay();
+          } else if (val === '=') {
+            try {
+              // Substitui símbolos para JS
+              let expr = current.replace(/÷/g, '/').replace(/×/g, '*').replace(/−/g, '-');
+              let res = eval(expr);
+              if (!isFinite(res)) {
+                showResult("Erro: divisão por zero.");
+              } else {
+                showResult(res);
+                lastResult = res;
+                current = res.toString();
+                updateDisplay();
+              }
+            } catch {
+              showResult("Expressão inválida.");
+            }
+          } else {
+            if (current.length < 20) {
+              current += val;
+              updateDisplay();
+            }
+          }
+        });
       });
+
+      updateDisplay();
     </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
