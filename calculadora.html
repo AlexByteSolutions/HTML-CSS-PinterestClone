@@ -1,152 +1,375 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Calculadora</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="./style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Calculadora · PinBoard</title>
+  <meta name="description" content="Calculadora científica com histórico de operações." />
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+  <!-- Bootstrap 5.3 CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+
+  <!-- Ionicons 7 -->
+  <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+  <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+
+  <!-- Estilos globais -->
+  <link rel="stylesheet" href="./style.css" />
 </head>
+
 <body class="dark-mode">
-    <nav class="d-flex justify-content-between align-items-center px-4 py-3 bg-opacity-95 border-bottom position-fixed top-0 start-0 end-0 z-3">
-        <div class="nav-links d-flex gap-3">
-            <a href="index.html">Home</a>
-            <a href="calculadora.html" class="active">Calculadora</a>
-        </div>
-        <button id="theme-toggle" class="theme-toggle btn btn-outline-secondary d-flex align-items-center justify-content-center rounded-3 p-2" aria-label="Toggle light/dark mode">
-            <ion-icon name="sunny" class="sun-icon"></ion-icon>
-            <ion-icon name="moon" class="moon-icon"></ion-icon>
+
+  <!-- ========================================================
+       BARRA DE NAVEGAÇÃO SUPERIOR
+  ======================================================== -->
+  <nav id="main-nav" aria-label="Navegação principal">
+    <div class="nav-inner">
+      <!-- Logo / marca -->
+      <a href="index.html" class="nav-brand" aria-label="PinBoard – início">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"
+            fill="var(--primary)"/>
+        </svg>
+        <span class="nav-brand-text">PinBoard</span>
+      </a>
+
+      <!-- Links de navegação -->
+      <div class="nav-links" role="list">
+        <a href="index.html" class="nav-link" role="listitem">
+          <ion-icon name="grid-outline" aria-hidden="true"></ion-icon>
+          <span>Galeria</span>
+        </a>
+        <a href="calculadora.html" class="nav-link active" role="listitem">
+          <ion-icon name="calculator-outline" aria-hidden="true"></ion-icon>
+          <span>Calculadora</span>
+        </a>
+      </div>
+
+      <!-- Espaçador -->
+      <div class="nav-search" style="visibility:hidden;" aria-hidden="true">
+        <ion-icon name="search-outline"></ion-icon>
+        <input type="search" tabindex="-1" />
+      </div>
+
+      <!-- Controles do lado direito -->
+      <div class="nav-actions">
+        <button id="theme-toggle" class="btn-icon" aria-label="Alternar tema claro/escuro" title="Alternar tema">
+          <ion-icon name="sunny-outline" class="sun-icon" aria-hidden="true"></ion-icon>
+          <ion-icon name="moon-outline"  class="moon-icon" aria-hidden="true"></ion-icon>
         </button>
-    </nav>
-    <main class="container pt-5">
-        <div class="row justify-content-center align-items-center" style="min-height: 80vh;">
-            <div class="col-12 col-sm-10 col-md-8 col-lg-5">
-                <div class="card shadow-lg rounded-4">
-                    <div class="card-body p-4">
-                        <h2 class="mb-4 text-center">
-                            <ion-icon name="calculator-outline" style="font-size:2rem;vertical-align:middle;"></ion-icon>
-                            Calculadora
-                        </h2>
-                        <div class="mb-3">
-                            <div id="calc-display" class="form-control text-end fs-3 fw-bold mb-2" style="height:60px; background:var(--surface);"></div>
-                        </div>
-                        <div class="row g-2">
-                            <div class="col-3">
-                                <button type="button" class="btn btn-light w-100 py-3 btn-calc" data-value="7">7</button>
-                            </div>
-                            <div class="col-3">
-                                <button type="button" class="btn btn-light w-100 py-3 btn-calc" data-value="8">8</button>
-                            </div>
-                            <div class="col-3">
-                                <button type="button" class="btn btn-light w-100 py-3 btn-calc" data-value="9">9</button>
-                            </div>
-                            <div class="col-3">
-                                <button type="button" class="btn btn-warning w-100 py-3 btn-calc" data-value="/">÷</button>
-                            </div>
-                            <div class="col-3">
-                                <button type="button" class="btn btn-light w-100 py-3 btn-calc" data-value="4">4</button>
-                            </div>
-                            <div class="col-3">
-                                <button type="button" class="btn btn-light w-100 py-3 btn-calc" data-value="5">5</button>
-                            </div>
-                            <div class="col-3">
-                                <button type="button" class="btn btn-light w-100 py-3 btn-calc" data-value="6">6</button>
-                            </div>
-                            <div class="col-3">
-                                <button type="button" class="btn btn-warning w-100 py-3 btn-calc" data-value="*">×</button>
-                            </div>
-                            <div class="col-3">
-                                <button type="button" class="btn btn-light w-100 py-3 btn-calc" data-value="1">1</button>
-                            </div>
-                            <div class="col-3">
-                                <button type="button" class="btn btn-light w-100 py-3 btn-calc" data-value="2">2</button>
-                            </div>
-                            <div class="col-3">
-                                <button type="button" class="btn btn-light w-100 py-3 btn-calc" data-value="3">3</button>
-                            </div>
-                            <div class="col-3">
-                                <button type="button" class="btn btn-warning w-100 py-3 btn-calc" data-value="-">−</button>
-                            </div>
-                            <div class="col-3">
-                                <button type="button" class="btn btn-secondary w-100 py-3 btn-calc" data-value="C">C</button>
-                            </div>
-                            <div class="col-3">
-                                <button type="button" class="btn btn-light w-100 py-3 btn-calc" data-value="0">0</button>
-                            </div>
-                            <div class="col-3">
-                                <button type="button" class="btn btn-light w-100 py-3 btn-calc" data-value=".">.</button>
-                            </div>
-                            <div class="col-3">
-                                <button type="button" class="btn btn-warning w-100 py-3 btn-calc" data-value="+">+</button>
-                            </div>
-                            <div class="col-6 mt-2">
-                                <button type="button" class="btn btn-danger w-100 py-3 btn-calc" data-value="DEL">DEL</button>
-                            </div>
-                            <div class="col-6 mt-2">
-                                <button type="button" class="btn btn-success w-100 py-3 btn-calc" data-value="=">=</button>
-                            </div>
-                        </div>
-                        <div id="resultado" class="alert alert-info d-none text-center fw-bold mt-3"></div>
-                    </div>
-                </div>
-            </div>
+        <button class="nav-avatar" aria-label="Perfil do usuário" title="Perfil">
+          <img src="https://avatars.githubusercontent.com/u/159472942?v=4"
+               alt="Avatar do usuário"
+               width="34" height="34" />
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ========================================================
+       CALCULADORA
+  ======================================================== -->
+  <main class="calc-main">
+    <div class="calc-wrapper">
+
+      <!-- Cartão principal da calculadora -->
+      <div class="calc-card" role="application" aria-label="Calculadora">
+
+        <!-- Cabeçalho do cartão -->
+        <div class="calc-header">
+          <ion-icon name="calculator-outline" aria-hidden="true"></ion-icon>
+          <h1 class="calc-title">Calculadora</h1>
+          <button id="calc-history-toggle"
+                  class="btn-icon btn-icon-sm"
+                  aria-label="Abrir histórico"
+                  title="Histórico">
+            <ion-icon name="time-outline" aria-hidden="true"></ion-icon>
+          </button>
         </div>
-    </main>
-    <script src="./script.js"></script>
-    <script>
-      // Calculadora lógica
-      let calcDisplay = document.getElementById('calc-display');
-      let resultadoDiv = document.getElementById('resultado');
-      let current = '';
-      let lastResult = '';
 
-      function updateDisplay() {
-        calcDisplay.textContent = current || '0';
+        <!-- Visor da calculadora -->
+        <div class="calc-display-wrap" aria-live="polite">
+          <!-- Expressão sendo digitada (linha superior, menor) -->
+          <div id="calc-expr" class="calc-expr" aria-label="Expressão atual"></div>
+          <!-- Resultado / entrada principal -->
+          <div id="calc-display" class="calc-display" aria-label="Resultado">0</div>
+        </div>
+
+        <!-- Grade de botões -->
+        <div class="calc-grid" role="group" aria-label="Botões da calculadora">
+
+          <!-- Linha 1: limpar, inverter sinal, porcentagem, divisão -->
+          <button class="calc-btn calc-btn-fn" data-value="C"       aria-label="Limpar">C</button>
+          <button class="calc-btn calc-btn-fn" data-value="+/-"     aria-label="Inverter sinal">+/−</button>
+          <button class="calc-btn calc-btn-fn" data-value="%"       aria-label="Porcentagem">%</button>
+          <button class="calc-btn calc-btn-op" data-value="/"       aria-label="Dividir">÷</button>
+
+          <!-- Linha 2: 7 8 9 × -->
+          <button class="calc-btn calc-btn-num" data-value="7" aria-label="7">7</button>
+          <button class="calc-btn calc-btn-num" data-value="8" aria-label="8">8</button>
+          <button class="calc-btn calc-btn-num" data-value="9" aria-label="9">9</button>
+          <button class="calc-btn calc-btn-op"  data-value="*" aria-label="Multiplicar">×</button>
+
+          <!-- Linha 3: 4 5 6 − -->
+          <button class="calc-btn calc-btn-num" data-value="4" aria-label="4">4</button>
+          <button class="calc-btn calc-btn-num" data-value="5" aria-label="5">5</button>
+          <button class="calc-btn calc-btn-num" data-value="6" aria-label="6">6</button>
+          <button class="calc-btn calc-btn-op"  data-value="-" aria-label="Subtrair">−</button>
+
+          <!-- Linha 4: 1 2 3 + -->
+          <button class="calc-btn calc-btn-num" data-value="1" aria-label="1">1</button>
+          <button class="calc-btn calc-btn-num" data-value="2" aria-label="2">2</button>
+          <button class="calc-btn calc-btn-num" data-value="3" aria-label="3">3</button>
+          <button class="calc-btn calc-btn-op"  data-value="+" aria-label="Somar">+</button>
+
+          <!-- Linha 5: DEL 0 . = -->
+          <button class="calc-btn calc-btn-fn"  data-value="DEL"   aria-label="Apagar último">⌫</button>
+          <button class="calc-btn calc-btn-num" data-value="0"     aria-label="0">0</button>
+          <button class="calc-btn calc-btn-num" data-value="."     aria-label="Vírgula">.</button>
+          <button class="calc-btn calc-btn-eq"  data-value="="     aria-label="Calcular resultado">=</button>
+
+        </div><!-- /.calc-grid -->
+
+        <!-- Área de resultado (apenas quando existe) -->
+        <div id="calc-result-area" class="calc-result-area" hidden aria-live="assertive"></div>
+
+      </div><!-- /.calc-card -->
+
+      <!-- Painel lateral de histórico -->
+      <aside id="calc-history-panel" class="calc-history-panel" aria-label="Histórico de cálculos" hidden>
+        <div class="calc-history-header">
+          <span>Histórico</span>
+          <button id="calc-history-clear" class="btn-icon btn-icon-sm" aria-label="Limpar histórico" title="Limpar tudo">
+            <ion-icon name="trash-outline" aria-hidden="true"></ion-icon>
+          </button>
+        </div>
+        <ul id="calc-history-list" class="calc-history-list" aria-label="Lista de cálculos anteriores">
+          <li class="calc-history-empty">Nenhum cálculo ainda.</li>
+        </ul>
+      </aside>
+
+    </div><!-- /.calc-wrapper -->
+  </main>
+
+  <!-- ========================================================
+       TOAST
+  ======================================================== -->
+  <div id="toast-container" class="toast-container" aria-live="polite" aria-atomic="true"></div>
+
+  <!-- ========================================================
+       SCRIPTS
+  ======================================================== -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+  <!-- Lógica central (tema + calculadora) -->
+  <script src="./script.js"></script>
+
+  <!-- Lógica específica da calculadora -->
+  <script>
+    /* ------------------------------------------------------------------ *
+     *  CALCULADORA — lógica isolada com suporte a teclado e histórico     *
+     * ------------------------------------------------------------------ */
+    (function () {
+      'use strict';
+
+      const displayEl    = document.getElementById('calc-display');
+      const exprEl       = document.getElementById('calc-expr');
+      const resultArea   = document.getElementById('calc-result-area');
+      const historyList  = document.getElementById('calc-history-list');
+      const historyPanel = document.getElementById('calc-history-panel');
+      const historyToggle= document.getElementById('calc-history-toggle');
+      const historyClear = document.getElementById('calc-history-clear');
+
+      let current    = '';   // expressão sendo montada
+      let lastResult = null; // último resultado calculado
+      let history    = JSON.parse(localStorage.getItem('calc-history') || '[]');
+
+      /* ------ Renderização ------ */
+
+      function renderDisplay() {
+        displayEl.textContent = current || '0';
+        exprEl.textContent    = '';
+        resultArea.hidden     = true;
       }
 
-      function showResult(res) {
-        resultadoDiv.textContent = "Resultado: " + res;
-        resultadoDiv.classList.remove('d-none');
+      function renderResult(expr, result) {
+        exprEl.textContent        = expr + ' =';
+        displayEl.textContent     = result;
+        resultArea.hidden         = false;
+        resultArea.textContent    = '';
       }
 
-      document.querySelectorAll('.btn-calc').forEach(btn => {
-        btn.addEventListener('click', function() {
-          const val = this.getAttribute('data-value');
-          resultadoDiv.classList.add('d-none');
-          if (val === 'C') {
-            current = '';
-            lastResult = '';
-            updateDisplay();
-          } else if (val === 'DEL') {
-            current = current.slice(0, -1);
-            updateDisplay();
-          } else if (val === '=') {
-            try {
-              // Substitui símbolos para JS
-              let expr = current.replace(/÷/g, '/').replace(/×/g, '*').replace(/−/g, '-');
-              let res = eval(expr);
-              if (!isFinite(res)) {
-                showResult("Erro: divisão por zero.");
-              } else {
-                showResult(res);
-                lastResult = res;
-                current = res.toString();
-                updateDisplay();
-              }
-            } catch {
-              showResult("Expressão inválida.");
-            }
-          } else {
-            if (current.length < 20) {
-              current += val;
-              updateDisplay();
-            }
-          }
+      function addToHistory(expr, result) {
+        const entry = { expr, result, ts: Date.now() };
+        history.unshift(entry);
+        if (history.length > 50) history.pop();
+        localStorage.setItem('calc-history', JSON.stringify(history));
+        renderHistoryList();
+      }
+
+      function renderHistoryList() {
+        if (history.length === 0) {
+          historyList.innerHTML = '<li class="calc-history-empty">Nenhum cálculo ainda.</li>';
+          return;
+        }
+        historyList.innerHTML = history.map((e, i) => `
+          <li class="calc-history-item" data-index="${i}">
+            <span class="calc-history-expr">${escapeHtml(e.expr)} =</span>
+            <span class="calc-history-res">${escapeHtml(String(e.result))}</span>
+          </li>
+        `).join('');
+
+        historyList.querySelectorAll('.calc-history-item').forEach(item => {
+          item.addEventListener('click', () => {
+            const idx = parseInt(item.dataset.index, 10);
+            current = String(history[idx].result);
+            lastResult = history[idx].result;
+            renderDisplay();
+          });
         });
+      }
+
+      function escapeHtml(str) {
+        return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+      }
+
+      /* ------ Ações ------ */
+
+      function handleInput(val) {
+        resultArea.hidden = true;
+
+        if (val === 'C') {
+          current    = '';
+          lastResult = null;
+          renderDisplay();
+          return;
+        }
+
+        if (val === 'DEL') {
+          current = current.slice(0, -1);
+          renderDisplay();
+          return;
+        }
+
+        if (val === '+/-') {
+          if (current === '') return;
+          // Inverte o sinal do último número
+          current = current.replace(/(-?\d+\.?\d*)$/, (m) => String(-parseFloat(m)));
+          renderDisplay();
+          return;
+        }
+
+        if (val === '%') {
+          try {
+            const safeExpr = sanitize(current);
+            const partial  = Function('"use strict"; return (' + safeExpr + ')')();
+            current = String(partial / 100);
+            renderDisplay();
+          } catch (_) { /* expressão incompleta, ignora */ }
+          return;
+        }
+
+        if (val === '=') {
+          if (!current) return;
+          try {
+            const safeExpr = sanitize(current);
+            const res = Function('"use strict"; return (' + safeExpr + ')')();
+            if (!isFinite(res)) {
+              showError('Divisão por zero');
+              return;
+            }
+            const rounded = parseFloat(res.toPrecision(12));
+            addToHistory(humanExpr(current), rounded);
+            renderResult(humanExpr(current), rounded);
+            lastResult = rounded;
+            current    = String(rounded);
+          } catch (_) {
+            showError('Expressão inválida');
+          }
+          return;
+        }
+
+        /* Evita dois operadores consecutivos */
+        const operators = ['+', '-', '*', '/'];
+        if (operators.includes(val) && operators.includes(current.slice(-1))) {
+          current = current.slice(0, -1);
+        }
+
+        /* Evita dois pontos decimais no mesmo número */
+        if (val === '.') {
+          const parts = current.split(/[+\-*/]/);
+          if (parts[parts.length - 1].includes('.')) return;
+        }
+
+        if (current.length >= 30) return;
+        current += val;
+        renderDisplay();
+      }
+
+      /* Substitui operadores JS por símbolos mais seguros de eval */
+      function sanitize(expr) {
+        return expr.replace(/[^0-9+\-*/.()%]/g, '');
+      }
+
+      /* Converte expressão JS para exibição humana */
+      function humanExpr(expr) {
+        return expr.replace(/\*/g, '×').replace(/\//g, '÷').replace(/-/g, '−');
+      }
+
+      function showError(msg) {
+        displayEl.textContent = msg;
+        displayEl.classList.add('calc-display--error');
+        setTimeout(() => {
+          displayEl.classList.remove('calc-display--error');
+          renderDisplay();
+        }, 1800);
+      }
+
+      /* ------ Eventos dos botões ------ */
+
+      document.querySelectorAll('.calc-btn').forEach(btn => {
+        btn.addEventListener('click', () => handleInput(btn.dataset.value));
+
+        /* Feedback visual de pressionar (ripple simples via classe) */
+        btn.addEventListener('pointerdown', () => btn.classList.add('calc-btn--pressed'));
+        btn.addEventListener('pointerup',   () => btn.classList.remove('calc-btn--pressed'));
+        btn.addEventListener('pointerleave',() => btn.classList.remove('calc-btn--pressed'));
       });
 
-      updateDisplay();
-    </script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+      /* ------ Suporte a teclado ------ */
+      document.addEventListener('keydown', (e) => {
+        const map = {
+          '0':'0','1':'1','2':'2','3':'3','4':'4',
+          '5':'5','6':'6','7':'7','8':'8','9':'9',
+          '+':'+','-':'-','*':'*','/':'/','.':'.',
+          'Enter':'=','=':'=','Backspace':'DEL','Escape':'C','%':'%'
+        };
+        if (map[e.key] !== undefined) {
+          e.preventDefault();
+          handleInput(map[e.key]);
+        }
+      });
+
+      /* ------ Histórico ------ */
+      historyToggle.addEventListener('click', () => {
+        const isHidden = historyPanel.hidden;
+        historyPanel.hidden = !isHidden;
+        historyToggle.setAttribute('aria-label', isHidden ? 'Fechar histórico' : 'Abrir histórico');
+      });
+
+      historyClear.addEventListener('click', () => {
+        history = [];
+        localStorage.removeItem('calc-history');
+        renderHistoryList();
+      });
+
+      /* ------ Inicialização ------ */
+      renderDisplay();
+      renderHistoryList();
+    })();
+  </script>
 </body>
 </html>
