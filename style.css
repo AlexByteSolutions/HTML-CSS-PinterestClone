@@ -482,6 +482,7 @@ body.banner-visible {
   opacity: 0;
   transition: opacity var(--transition-fast);
   z-index: 2;
+  pointer-events: none;
 }
 
 .pin-img-wrap:hover .pin-overlay {
@@ -502,6 +503,7 @@ body.banner-visible {
   justify-content: center;
   transition: background var(--transition-fast), transform var(--transition-fast);
   cursor: pointer;
+  pointer-events: auto;
 }
 
 .pin-action:hover {
