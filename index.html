@@ -1,125 +1,471 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PinterestClone</title>
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="./style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Galeria · PinBoard</title>
+  <meta name="description" content="Galeria visual estilo Pinterest com drag & drop de imagens." />
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+  <!-- Bootstrap 5.3 CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+
+  <!-- Ionicons 7 (inline de suporte a módulos e fallback) -->
+  <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+  <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+
+  <!-- Estilos globais do projeto -->
+  <link rel="stylesheet" href="./style.css" />
 </head>
 
-<script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
-<script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
-
 <body class="dark-mode">
-    <nav class="d-flex justify-content-between align-items-center px-4 py-3 bg-opacity-95 border-bottom position-fixed top-0 start-0 end-0 z-3">
-        <div class="nav-links d-flex gap-3">
-            <a href="#" class="active">Home
-                <span></span>
-            </a>
-            <a href="calculadora.html">Calculadora</a>
-        </div>
-        <button id="theme-toggle" class="theme-toggle btn btn-outline-secondary d-flex align-items-center justify-content-center rounded-3 p-2" aria-label="Toggle light/dark mode">
-            <ion-icon name="sunny" class="sun-icon"></ion-icon>
-            <ion-icon name="moon" class="moon-icon"></ion-icon>
+
+  <!-- ========================================================
+       BARRA DE NAVEGAÇÃO SUPERIOR
+  ======================================================== -->
+  <nav id="main-nav" aria-label="Navegação principal">
+    <div class="nav-inner">
+      <!-- Logo / marca -->
+      <a href="index.html" class="nav-brand" aria-label="PinBoard – início">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"
+            fill="var(--primary)"/>
+        </svg>
+        <span class="nav-brand-text">PinBoard</span>
+      </a>
+
+      <!-- Links de navegação -->
+      <div class="nav-links" role="list">
+        <a href="index.html" class="nav-link active" role="listitem">
+          <ion-icon name="grid-outline" aria-hidden="true"></ion-icon>
+          <span>Galeria</span>
+        </a>
+        <a href="calculadora.html" class="nav-link" role="listitem">
+          <ion-icon name="calculator-outline" aria-hidden="true"></ion-icon>
+          <span>Calculadora</span>
+        </a>
+      </div>
+
+      <!-- Barra de pesquisa decorativa -->
+      <div class="nav-search" role="search">
+        <ion-icon name="search-outline" aria-hidden="true"></ion-icon>
+        <input type="search" placeholder="Pesquisar..." aria-label="Pesquisar imagens" readonly />
+      </div>
+
+      <!-- Controles do lado direito -->
+      <div class="nav-actions">
+        <!-- Botão de tema claro/escuro -->
+        <button id="theme-toggle" class="btn-icon" aria-label="Alternar tema claro/escuro" title="Alternar tema">
+          <ion-icon name="sunny-outline" class="sun-icon" aria-hidden="true"></ion-icon>
+          <ion-icon name="moon-outline"  class="moon-icon" aria-hidden="true"></ion-icon>
         </button>
-    </nav>
 
-    <main class="gallery pt-4 pb-5">
-        <div class="container-fluid">
-            <div class="row g-3" data-masonry='{"percentPosition": true }'>
-                <div class="col-12 col-sm-6 col-md-4 col-lg-3">
-                    <img src="https://th.bing.com/th/id/R.4a422edd4ea7f3e1866b823a387dc56b?rik=owxZGEcSJcsklw&pid=ImgRaw&r=0" alt="" class="img-fluid w-100 rounded-4 shadow-sm">
-                </div>
-                <div class="col-12 col-sm-6 col-md-4 col-lg-3">
-                    <img src="https://th.bing.com/th/id/R.18d822386aa31fc569c97cc28c1e8b1f?rik=Zb09Y%2b6okmGb8g&riu=http%3a%2f%2fv3wall.com%2fwallpaper%2f1920_1080%2f1005%2f1920_1080_201005041215072182354.jpg&ehk=Xjp%2bJVYB%2b%2fWYuO%2fALZkfEPySYcPMc4sbdn3UB%2bmLSAY%3d&risl=&pid=ImgRaw&r=0" alt="" class="img-fluid w-100 rounded-4 shadow-sm">
-                </div>
-                <div class="col-12 col-sm-6 col-md-4 col-lg-3">
-                    <img src="https://wallpapercave.com/wp/wp1754678.jpg" alt="" class="img-fluid w-100 rounded-4 shadow-sm">
-                </div>
-                <div class="col-12 col-sm-6 col-md-4 col-lg-3">
-                    <img src="https://th.bing.com/th/id/OIP.wx-NnHDiopC7d6FhmjMb3gHaJ4?rs=1&pid=ImgDetMain" alt="" class="img-fluid w-100 rounded-4 shadow-sm">
-                </div>
-                <!-- Adicione mais colunas conforme necessário -->
-                <div class="col-12 col-sm-6 col-md-4 col-lg-3">
-                    <img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=400&q=80" alt="" class="img-fluid w-100 rounded-4 shadow-sm">
-                </div>
-                <div class="col-12 col-sm-6 col-md-4 col-lg-3">
-                    <img src="https://images.unsplash.com/photo-1465101046530-73398c7f28ca?auto=format&fit=crop&w=400&q=80" alt="" class="img-fluid w-100 rounded-4 shadow-sm">
-                </div>
-                <div class="col-12 col-sm-6 col-md-4 col-lg-3">
-                    <img src="https://images.unsplash.com/photo-1519125323398-675f0ddb6308?auto=format&fit=crop&w=400&q=80" alt="" class="img-fluid w-100 rounded-4 shadow-sm">
-                </div>
-                <div class="col-12 col-sm-6 col-md-4 col-lg-3">
-                    <img src="https://images.unsplash.com/photo-1502086223501-7ea6ecd79368?auto=format&fit=crop&w=400&q=80" alt="" class="img-fluid w-100 rounded-4 shadow-sm">
-                </div>
-                <div class="col-12 col-sm-6 col-md-4 col-lg-3">
-                    <img src="https://images.unsplash.com/photo-1465101178521-c1a2b3a8a694?auto=format&fit=crop&w=400&q=80" alt="" class="img-fluid w-100 rounded-4 shadow-sm">
-                </div>
-                <div class="col-12 col-sm-6 col-md-4 col-lg-3">
-                    <img src="https://images.unsplash.com/photo-1519985176271-adb1088fa94c?auto=format&fit=crop&w=400&q=80" alt="" class="img-fluid w-100 rounded-4 shadow-sm">
-                </div>
-                <div class="col-12 col-sm-6 col-md-4 col-lg-3">
-                    <img src="https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?auto=format&fit=crop&w=400&q=80" alt="" class="img-fluid w-100 rounded-4 shadow-sm">
-                </div>
-                <div class="col-12 col-sm-6 col-md-4 col-lg-3">
-                    <img src="https://images.unsplash.com/photo-1465101046530-73398c7f28ca?auto=format&fit=crop&w=400&q=80" alt="" class="img-fluid w-100 rounded-4 shadow-sm">
-                </div>
-                <div class="col-12 col-sm-6 col-md-4 col-lg-3">
-                    <img src="https://images.unsplash.com/photo-1519125323398-675f0ddb6308?auto=format&fit=crop&w=400&q=80" alt="" class="img-fluid w-100 rounded-4 shadow-sm">
-                </div>
-                <div class="col-12 col-sm-6 col-md-4 col-lg-3">
-                    <img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=400&q=80" alt="" class="img-fluid w-100 rounded-4 shadow-sm">
-                </div>
-                <div class="col-12 col-sm-6 col-md-4 col-lg-3">
-                    <img src="https://images.unsplash.com/photo-1502086223501-7ea6ecd79368?auto=format&fit=crop&w=400&q=80" alt="" class="img-fluid w-100 rounded-4 shadow-sm">
-                </div>
-                <div class="col-12 col-sm-6 col-md-4 col-lg-3">
-                    <img src="https://images.unsplash.com/photo-1465101178521-c1a2b3a8a694?auto=format&fit=crop&w=400&q=80" alt="" class="img-fluid w-100 rounded-4 shadow-sm">
-                </div>
-                <div class="col-12 col-sm-6 col-md-4 col-lg-3">
-                    <img src="https://images.unsplash.com/photo-1519985176271-adb1088fa94c?auto=format&fit=crop&w=400&q=80" alt="" class="img-fluid w-100 rounded-4 shadow-sm">
-                </div>
-                <div class="col-12 col-sm-6 col-md-4 col-lg-3">
-                    <img src="https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?auto=format&fit=crop&w=400&q=80" alt="" class="img-fluid w-100 rounded-4 shadow-sm">
-                </div>
-            </div>
+        <!-- Avatar / perfil -->
+        <button class="nav-avatar" aria-label="Perfil do usuário" title="Perfil">
+          <img src="https://avatars.githubusercontent.com/u/159472942?v=4"
+               alt="Avatar do usuário"
+               width="34" height="34" />
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ========================================================
+       BANNER DE INSTRUÇÃO – DRAG & DROP
+  ======================================================== -->
+  <div id="drag-banner" class="drag-banner" role="alert" aria-live="polite">
+    <ion-icon name="move-outline" aria-hidden="true"></ion-icon>
+    <span>Clique e arraste qualquer imagem para movê-la livremente pela tela</span>
+    <button id="close-banner" class="btn-icon btn-icon-sm" aria-label="Fechar aviso">
+      <ion-icon name="close-outline" aria-hidden="true"></ion-icon>
+    </button>
+  </div>
+
+  <!-- ========================================================
+       CONTEÚDO PRINCIPAL – GALERIA MASONRY
+  ======================================================== -->
+  <main class="gallery-main" id="gallery-root">
+    <div class="container-fluid gallery-container">
+
+      <!-- Cabeçalho da seção -->
+      <div class="gallery-header">
+        <h1 class="gallery-title">Para você</h1>
+        <div class="gallery-filters" role="group" aria-label="Filtros de categoria">
+          <button class="filter-chip active" data-filter="all">Tudo</button>
+          <button class="filter-chip" data-filter="nature">Natureza</button>
+          <button class="filter-chip" data-filter="architecture">Arquitetura</button>
+          <button class="filter-chip" data-filter="portrait">Retratos</button>
+          <button class="filter-chip" data-filter="abstract">Abstrato</button>
         </div>
-    </main>
+      </div>
 
-    <footer class="d-flex justify-content-center align-items-center gap-4 px-4 border-top position-fixed bottom-0 start-0 end-0 bg-opacity-95" style="height:72px;">
-        <ion-icon name="home" data-bs-toggle="tooltip" data-bs-placement="top" title="Home"></ion-icon>
-        <ion-icon name="search" data-bs-toggle="tooltip" data-bs-placement="top" title="Buscar"></ion-icon>
-        <ion-icon name="add" data-bs-toggle="tooltip" data-bs-placement="top" title="Adicionar"></ion-icon>
-        <ion-icon name="chatbubble-ellipses" data-bs-toggle="tooltip" data-bs-placement="top" title="Mensagens"></ion-icon>
-        <img src="https://avatars.githubusercontent.com/u/159472942?v=4" alt="" class="rounded-circle border border-2" style="width:32px;height:32px;" data-bs-toggle="tooltip" data-bs-placement="top" title="Perfil">
-    </footer>
-    <script src="./script.js"></script>
-    <!-- Adicione o JS do Bootstrap para tooltips -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script>
-      // Inicializa tooltips Bootstrap
-      document.addEventListener('DOMContentLoaded', function () {
-        const tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
-        tooltipTriggerList.map(function (tooltipTriggerEl) {
-          return new bootstrap.Tooltip(tooltipTriggerEl);
-        });
-      });
-    </script>
-    <!-- Adicione o Masonry JS do Bootstrap antes do fechamento do body -->
-    <script src="https://cdn.jsdelivr.net/npm/masonry-layout@4.2.2/dist/masonry.pkgd.min.js"></script>
-    <script>
-      document.addEventListener('DOMContentLoaded', function () {
-        var elem = document.querySelector('.row[data-masonry]');
-        if (elem) {
-          new Masonry(elem, {
-            itemSelector: '.col-12, .col-sm-6, .col-md-4, .col-lg-3',
-            percentPosition: true
-          });
-        }
-      });
-    </script>
+      <!-- Grid Masonry — imagens com classes draggable-img e data-category -->
+      <div class="masonry-grid" id="masonry-grid" data-masonry='{"percentPosition": true}'>
+
+        <div class="masonry-item" data-category="nature">
+          <div class="pin-card">
+            <div class="pin-img-wrap">
+              <img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=600&q=80"
+                   alt="Paisagem com lago e montanhas"
+                   class="pin-img draggable-img"
+                   loading="lazy"
+                   draggable="false" />
+              <div class="pin-overlay">
+                <button class="pin-action" aria-label="Curtir imagem">
+                  <ion-icon name="heart-outline" aria-hidden="true"></ion-icon>
+                </button>
+                <button class="pin-action pin-action-drag" aria-label="Arrastar imagem" title="Arraste para mover">
+                  <ion-icon name="move-outline" aria-hidden="true"></ion-icon>
+                </button>
+              </div>
+            </div>
+            <div class="pin-info">
+              <span class="pin-tag">Natureza</span>
+              <p class="pin-title">Lago sereno ao entardecer</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="masonry-item" data-category="architecture">
+          <div class="pin-card">
+            <div class="pin-img-wrap">
+              <img src="https://images.unsplash.com/photo-1465101046530-73398c7f28ca?auto=format&fit=crop&w=600&q=80"
+                   alt="Céu estrelado sobre horizonte urbano"
+                   class="pin-img draggable-img"
+                   loading="lazy"
+                   draggable="false" />
+              <div class="pin-overlay">
+                <button class="pin-action" aria-label="Curtir imagem">
+                  <ion-icon name="heart-outline" aria-hidden="true"></ion-icon>
+                </button>
+                <button class="pin-action pin-action-drag" aria-label="Arrastar imagem" title="Arraste para mover">
+                  <ion-icon name="move-outline" aria-hidden="true"></ion-icon>
+                </button>
+              </div>
+            </div>
+            <div class="pin-info">
+              <span class="pin-tag">Céu</span>
+              <p class="pin-title">Horizonte urbano noturno</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="masonry-item" data-category="portrait">
+          <div class="pin-card">
+            <div class="pin-img-wrap">
+              <img src="https://images.unsplash.com/photo-1519125323398-675f0ddb6308?auto=format&fit=crop&w=600&q=80"
+                   alt="Pessoa contemplando floresta"
+                   class="pin-img draggable-img"
+                   loading="lazy"
+                   draggable="false" />
+              <div class="pin-overlay">
+                <button class="pin-action" aria-label="Curtir imagem">
+                  <ion-icon name="heart-outline" aria-hidden="true"></ion-icon>
+                </button>
+                <button class="pin-action pin-action-drag" aria-label="Arrastar imagem" title="Arraste para mover">
+                  <ion-icon name="move-outline" aria-hidden="true"></ion-icon>
+                </button>
+              </div>
+            </div>
+            <div class="pin-info">
+              <span class="pin-tag">Retrato</span>
+              <p class="pin-title">Contemplação na floresta</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="masonry-item" data-category="nature">
+          <div class="pin-card">
+            <div class="pin-img-wrap">
+              <img src="https://images.unsplash.com/photo-1502086223501-7ea6ecd79368?auto=format&fit=crop&w=600&q=80"
+                   alt="Prados dourados com flores silvestres"
+                   class="pin-img draggable-img"
+                   loading="lazy"
+                   draggable="false" />
+              <div class="pin-overlay">
+                <button class="pin-action" aria-label="Curtir imagem">
+                  <ion-icon name="heart-outline" aria-hidden="true"></ion-icon>
+                </button>
+                <button class="pin-action pin-action-drag" aria-label="Arrastar imagem" title="Arraste para mover">
+                  <ion-icon name="move-outline" aria-hidden="true"></ion-icon>
+                </button>
+              </div>
+            </div>
+            <div class="pin-info">
+              <span class="pin-tag">Campo</span>
+              <p class="pin-title">Prados dourados silvestres</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="masonry-item" data-category="abstract">
+          <div class="pin-card">
+            <div class="pin-img-wrap">
+              <img src="https://images.unsplash.com/photo-1465101178521-c1a2b3a8a694?auto=format&fit=crop&w=600&q=80"
+                   alt="Formas abstratas coloridas"
+                   class="pin-img draggable-img"
+                   loading="lazy"
+                   draggable="false" />
+              <div class="pin-overlay">
+                <button class="pin-action" aria-label="Curtir imagem">
+                  <ion-icon name="heart-outline" aria-hidden="true"></ion-icon>
+                </button>
+                <button class="pin-action pin-action-drag" aria-label="Arrastar imagem" title="Arraste para mover">
+                  <ion-icon name="move-outline" aria-hidden="true"></ion-icon>
+                </button>
+              </div>
+            </div>
+            <div class="pin-info">
+              <span class="pin-tag">Abstrato</span>
+              <p class="pin-title">Composição de cores vivas</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="masonry-item" data-category="nature">
+          <div class="pin-card">
+            <div class="pin-img-wrap">
+              <img src="https://images.unsplash.com/photo-1519985176271-adb1088fa94c?auto=format&fit=crop&w=600&q=80"
+                   alt="Floresta densa com raios de luz"
+                   class="pin-img draggable-img"
+                   loading="lazy"
+                   draggable="false" />
+              <div class="pin-overlay">
+                <button class="pin-action" aria-label="Curtir imagem">
+                  <ion-icon name="heart-outline" aria-hidden="true"></ion-icon>
+                </button>
+                <button class="pin-action pin-action-drag" aria-label="Arrastar imagem" title="Arraste para mover">
+                  <ion-icon name="move-outline" aria-hidden="true"></ion-icon>
+                </button>
+              </div>
+            </div>
+            <div class="pin-info">
+              <span class="pin-tag">Floresta</span>
+              <p class="pin-title">Raios de sol na densa mata</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="masonry-item" data-category="nature">
+          <div class="pin-card">
+            <div class="pin-img-wrap">
+              <img src="https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?auto=format&fit=crop&w=600&q=80"
+                   alt="Praia deserta ao pôr do sol"
+                   class="pin-img draggable-img"
+                   loading="lazy"
+                   draggable="false" />
+              <div class="pin-overlay">
+                <button class="pin-action" aria-label="Curtir imagem">
+                  <ion-icon name="heart-outline" aria-hidden="true"></ion-icon>
+                </button>
+                <button class="pin-action pin-action-drag" aria-label="Arrastar imagem" title="Arraste para mover">
+                  <ion-icon name="move-outline" aria-hidden="true"></ion-icon>
+                </button>
+              </div>
+            </div>
+            <div class="pin-info">
+              <span class="pin-tag">Praia</span>
+              <p class="pin-title">Pôr do sol na areia</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="masonry-item" data-category="architecture">
+          <div class="pin-card">
+            <div class="pin-img-wrap">
+              <img src="https://th.bing.com/th/id/R.4a422edd4ea7f3e1866b823a387dc56b?rik=owxZGEcSJcsklw&pid=ImgRaw&r=0"
+                   alt="Estrutura arquitetônica moderna"
+                   class="pin-img draggable-img"
+                   loading="lazy"
+                   draggable="false" />
+              <div class="pin-overlay">
+                <button class="pin-action" aria-label="Curtir imagem">
+                  <ion-icon name="heart-outline" aria-hidden="true"></ion-icon>
+                </button>
+                <button class="pin-action pin-action-drag" aria-label="Arrastar imagem" title="Arraste para mover">
+                  <ion-icon name="move-outline" aria-hidden="true"></ion-icon>
+                </button>
+              </div>
+            </div>
+            <div class="pin-info">
+              <span class="pin-tag">Arquitetura</span>
+              <p class="pin-title">Linhas e formas modernas</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="masonry-item" data-category="architecture">
+          <div class="pin-card">
+            <div class="pin-img-wrap">
+              <img src="https://th.bing.com/th/id/OIP.wx-NnHDiopC7d6FhmjMb3gHaJ4?rs=1&pid=ImgDetMain"
+                   alt="Vista panorâmica de cidade ao entardecer"
+                   class="pin-img draggable-img"
+                   loading="lazy"
+                   draggable="false" />
+              <div class="pin-overlay">
+                <button class="pin-action" aria-label="Curtir imagem">
+                  <ion-icon name="heart-outline" aria-hidden="true"></ion-icon>
+                </button>
+                <button class="pin-action pin-action-drag" aria-label="Arrastar imagem" title="Arraste para mover">
+                  <ion-icon name="move-outline" aria-hidden="true"></ion-icon>
+                </button>
+              </div>
+            </div>
+            <div class="pin-info">
+              <span class="pin-tag">Cidade</span>
+              <p class="pin-title">Panorama urbano ao entardecer</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="masonry-item" data-category="nature">
+          <div class="pin-card">
+            <div class="pin-img-wrap">
+              <img src="https://wallpapercave.com/wp/wp1754678.jpg"
+                   alt="Natureza exuberante com cachoeira"
+                   class="pin-img draggable-img"
+                   loading="lazy"
+                   draggable="false" />
+              <div class="pin-overlay">
+                <button class="pin-action" aria-label="Curtir imagem">
+                  <ion-icon name="heart-outline" aria-hidden="true"></ion-icon>
+                </button>
+                <button class="pin-action pin-action-drag" aria-label="Arrastar imagem" title="Arraste para mover">
+                  <ion-icon name="move-outline" aria-hidden="true"></ion-icon>
+                </button>
+              </div>
+            </div>
+            <div class="pin-info">
+              <span class="pin-tag">Cachoeira</span>
+              <p class="pin-title">Cachoeira exuberante</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="masonry-item" data-category="portrait">
+          <div class="pin-card">
+            <div class="pin-img-wrap">
+              <img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=600&q=80"
+                   alt="Reflexo de montanhas no lago"
+                   class="pin-img draggable-img"
+                   loading="lazy"
+                   draggable="false" />
+              <div class="pin-overlay">
+                <button class="pin-action" aria-label="Curtir imagem">
+                  <ion-icon name="heart-outline" aria-hidden="true"></ion-icon>
+                </button>
+                <button class="pin-action pin-action-drag" aria-label="Arrastar imagem" title="Arraste para mover">
+                  <ion-icon name="move-outline" aria-hidden="true"></ion-icon>
+                </button>
+              </div>
+            </div>
+            <div class="pin-info">
+              <span class="pin-tag">Reflexo</span>
+              <p class="pin-title">Espelho d'água nas montanhas</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="masonry-item" data-category="abstract">
+          <div class="pin-card">
+            <div class="pin-img-wrap">
+              <img src="https://images.unsplash.com/photo-1465101046530-73398c7f28ca?auto=format&fit=crop&w=600&q=80"
+                   alt="Luz e sombra em abstrato"
+                   class="pin-img draggable-img"
+                   loading="lazy"
+                   draggable="false" />
+              <div class="pin-overlay">
+                <button class="pin-action" aria-label="Curtir imagem">
+                  <ion-icon name="heart-outline" aria-hidden="true"></ion-icon>
+                </button>
+                <button class="pin-action pin-action-drag" aria-label="Arrastar imagem" title="Arraste para mover">
+                  <ion-icon name="move-outline" aria-hidden="true"></ion-icon>
+                </button>
+              </div>
+            </div>
+            <div class="pin-info">
+              <span class="pin-tag">Luz</span>
+              <p class="pin-title">Jogo de luzes e sombras</p>
+            </div>
+          </div>
+        </div>
+
+      </div><!-- /.masonry-grid -->
+    </div><!-- /.container-fluid -->
+  </main>
+
+  <!-- ========================================================
+       LIGHTBOX – visualização ampliada da imagem
+  ======================================================== -->
+  <div id="lightbox" class="lightbox" role="dialog" aria-modal="true" aria-label="Visualização ampliada" hidden>
+    <div class="lightbox-backdrop" id="lightbox-backdrop"></div>
+    <div class="lightbox-content">
+      <button class="lightbox-close btn-icon" id="lightbox-close" aria-label="Fechar visualização">
+        <ion-icon name="close-outline" aria-hidden="true"></ion-icon>
+      </button>
+      <button class="lightbox-nav lightbox-prev" id="lightbox-prev" aria-label="Imagem anterior">
+        <ion-icon name="chevron-back-outline" aria-hidden="true"></ion-icon>
+      </button>
+      <img id="lightbox-img" src="" alt="" class="lightbox-img" />
+      <button class="lightbox-nav lightbox-next" id="lightbox-next" aria-label="Próxima imagem">
+        <ion-icon name="chevron-forward-outline" aria-hidden="true"></ion-icon>
+      </button>
+    </div>
+  </div>
+
+  <!-- ========================================================
+       TOAST – notificação de feedback
+  ======================================================== -->
+  <div id="toast-container" class="toast-container" aria-live="polite" aria-atomic="true"></div>
+
+  <!-- ========================================================
+       RODAPÉ INFERIOR FIXO
+  ======================================================== -->
+  <footer id="main-footer" role="contentinfo" aria-label="Rodapé de navegação">
+    <nav class="footer-nav" aria-label="Navegação rápida">
+      <a href="index.html" class="footer-item active" aria-label="Início" title="Início">
+        <ion-icon name="home" aria-hidden="true"></ion-icon>
+        <span>Início</span>
+      </a>
+      <button class="footer-item" aria-label="Buscar" title="Buscar">
+        <ion-icon name="search" aria-hidden="true"></ion-icon>
+        <span>Buscar</span>
+      </button>
+      <button class="footer-item footer-add" aria-label="Adicionar pin" title="Adicionar">
+        <ion-icon name="add" aria-hidden="true"></ion-icon>
+      </button>
+      <button class="footer-item" aria-label="Mensagens" title="Mensagens">
+        <ion-icon name="chatbubble-ellipses" aria-hidden="true"></ion-icon>
+        <span>Mensagens</span>
+      </button>
+      <button class="footer-item" aria-label="Perfil" title="Perfil">
+        <img src="https://avatars.githubusercontent.com/u/159472942?v=4"
+             alt="Avatar do usuário"
+             class="footer-avatar"
+             width="28" height="28" />
+        <span>Perfil</span>
+      </button>
+    </nav>
+  </footer>
+
+  <!-- ========================================================
+       SCRIPTS
+  ======================================================== -->
+
+  <!-- Bootstrap 5 bundle (inclui Popper) -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+  <!-- Masonry layout -->
+  <script src="https://cdn.jsdelivr.net/npm/masonry-layout@4.2.2/dist/masonry.pkgd.min.js"></script>
+
+  <!-- imagesLoaded – garante que o Masonry recalcule após imagens carregarem -->
+  <!-- Nova biblioteca adicionada: imagesLoaded v5 (MIT) → resolve layout quebrado quando imagens remotas
+       demoram para carregar, garantindo que o Masonry só posicione os itens após saber as dimensões reais. -->
+  <script src="https://cdn.jsdelivr.net/npm/imagesloaded@5/imagesloaded.pkgd.min.js"></script>
+
+  <!-- Lógica central do projeto (tema, drag-and-drop, galeria, lightbox, toasts) -->
+  <script src="./script.js"></script>
 </body>
 </html>

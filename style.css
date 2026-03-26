@@ -1,202 +1,1233 @@
-/* CSS Atualizado */
+/* ============================================================
+   PINBOARD — Stylesheet Principal
+   Tecnologias: CSS Custom Properties, CSS Grid, Flexbox,
+   CSS Animations, backdrop-filter, scroll-behavior
+   ============================================================ */
+
+/* ============================================================
+   1. TOKENS — Custom Properties (Design Tokens)
+   ============================================================ */
 :root {
-  --primary-color: #e60023;
+  --primary:        #e60023;
+  --primary-light:  #ff4560;
+  --primary-dark:   #b3001b;
+
+  --radius-sm:   8px;
+  --radius-md:  12px;
+  --radius-lg:  20px;
+  --radius-xl:  28px;
+  --radius-full: 9999px;
+
+  --shadow-sm:  0 1px 3px rgba(0,0,0,.12), 0 1px 2px rgba(0,0,0,.08);
+  --shadow-md:  0 4px 16px rgba(0,0,0,.18);
+  --shadow-lg:  0 12px 40px rgba(0,0,0,.28);
+  --shadow-xl:  0 24px 64px rgba(0,0,0,.36);
+
+  --transition-fast:   150ms cubic-bezier(.4,0,.2,1);
+  --transition-base:   250ms cubic-bezier(.4,0,.2,1);
+  --transition-slow:   400ms cubic-bezier(.4,0,.2,1);
+
+  --nav-height:    68px;
+  --footer-height: 72px;
+  --banner-height: 44px;
 }
 
-/* Dark Mode Variables (default) */
+/* ---- Modo escuro (padrão) ---- */
 .dark-mode {
-  --background: #0f0f0f;
-  --surface: #1a1a1a;
-  --text-primary: #ffffff;
-  --text-secondary: #a8a8a8;
-  --nav-background: rgba(15, 15, 15, 0.95);
-  --border-color: rgba(255, 255, 255, 0.1);
-  --shadow: rgba(0, 0, 0, 0.4);
+  --bg:           #0f0f0f;
+  --surface:      #1a1a1a;
+  --surface-2:    #242424;
+  --surface-3:    #2e2e2e;
+  --text-primary: #f5f5f5;
+  --text-secondary:#a8a8a8;
+  --text-muted:   #666;
+  --border:       rgba(255,255,255,.08);
+  --nav-bg:       rgba(15,15,15,.9);
+  --footer-bg:    rgba(15,15,15,.95);
+  --shimmer:      rgba(255,255,255,.06);
+  --overlay-bg:   rgba(0,0,0,.55);
+  --card-bg:      #1a1a1a;
 }
 
-/* Light Mode Variables */
+/* ---- Modo claro ---- */
 .light-mode {
-  --background: #ffffff;
-  --surface: #f8f9fa;
-  --text-primary: #333333;
-  --text-secondary: #666666;
-  --nav-background: rgba(255, 255, 255, 0.95);
-  --border-color: rgba(0, 0, 0, 0.1);
-  --shadow: rgba(0, 0, 0, 0.1);
+  --bg:           #f0f0f0;
+  --surface:      #ffffff;
+  --surface-2:    #f8f8f8;
+  --surface-3:    #efefef;
+  --text-primary: #111111;
+  --text-secondary:#555555;
+  --text-muted:   #999;
+  --border:       rgba(0,0,0,.09);
+  --nav-bg:       rgba(255,255,255,.92);
+  --footer-bg:    rgba(255,255,255,.96);
+  --shimmer:      rgba(0,0,0,.06);
+  --overlay-bg:   rgba(0,0,0,.38);
+  --card-bg:      #ffffff;
 }
 
-* {
+/* ============================================================
+   2. RESET / BASE
+   ============================================================ */
+*, *::before, *::after {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
 }
 
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
 body {
-  background: var(--background);
-  font-family: 'Inter', sans-serif;
-  padding-top: 70px;
-  padding-bottom: 80px;
-}
-
-nav {
-  /* Removido display, justify-content, align-items, padding, position, z-index, border-bottom, background, backdrop-filter */
-  /* Utilizado utilitários Bootstrap no HTML */
-}
-
-.nav-links {
-  /* Removido display, gap */
-  /* Utilizado utilitários Bootstrap no HTML */
-}
-
-.theme-toggle {
-  /* Removido border, border-radius, padding, display, align-items, justify-content, width, height */
-  /* Utilizado utilitários e btn Bootstrap no HTML */
-}
-
-.theme-toggle:hover {
-  /* Removido border-color e transform para evitar conflito com Bootstrap */
-}
-
-.theme-toggle ion-icon {
-  font-size: 20px;
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  background: var(--bg);
   color: var(--text-primary);
-  transition: all 0.3s ease;
+  line-height: 1.5;
+  padding-top: var(--nav-height);
+  padding-bottom: var(--footer-height);
+  transition: background var(--transition-slow), color var(--transition-slow);
+  /* Camada de sobreposição para imagens arrastadas */
+  position: relative;
 }
 
-.moon-icon {
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+  border: none;
+  background: none;
+}
+
+/* ============================================================
+   3. NAVEGAÇÃO SUPERIOR
+   ============================================================ */
+#main-nav {
+  position: fixed;
+  inset-inline: 0;
+  top: 0;
+  height: var(--nav-height);
+  background: var(--nav-bg);
+  backdrop-filter: blur(16px) saturate(180%);
+  -webkit-backdrop-filter: blur(16px) saturate(180%);
+  border-bottom: 1px solid var(--border);
+  z-index: 1000;
+  transition: background var(--transition-slow), border-color var(--transition-slow);
+}
+
+.nav-inner {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  height: 100%;
+  max-width: 1600px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+/* Marca/logo */
+.nav-brand {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+  text-decoration: none;
+}
+
+.nav-brand-text {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--text-primary);
+  letter-spacing: -0.3px;
+}
+
+/* Links de navegação */
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.nav-link {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 14px;
+  border-radius: var(--radius-full);
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text-secondary);
+  transition: color var(--transition-fast), background var(--transition-fast);
+  text-decoration: none;
+}
+
+.nav-link ion-icon {
+  font-size: 17px;
+}
+
+.nav-link:hover {
+  color: var(--text-primary);
+  background: var(--surface-3);
+}
+
+.nav-link.active {
+  color: var(--text-primary);
+  background: var(--surface-2);
+  font-weight: 600;
+}
+
+/* Barra de pesquisa */
+.nav-search {
+  flex: 1;
+  max-width: 420px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-full);
+  padding: 0 16px;
+  height: 40px;
+  transition: background var(--transition-fast), border-color var(--transition-fast);
+}
+
+.nav-search:focus-within {
+  border-color: var(--primary);
+  background: var(--surface);
+}
+
+.nav-search ion-icon {
+  font-size: 16px;
+  color: var(--text-muted);
+  flex-shrink: 0;
+}
+
+.nav-search input {
+  flex: 1;
+  background: none;
+  border: none;
+  outline: none;
+  font-size: 14px;
+  color: var(--text-primary);
+  font-family: inherit;
+}
+
+.nav-search input::placeholder {
+  color: var(--text-muted);
+}
+
+/* Ações da nav (tema + avatar) */
+.nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+/* Avatar na nav */
+.nav-avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 2px solid var(--border);
+  transition: border-color var(--transition-fast);
+  cursor: pointer;
+  padding: 0;
+  background: none;
+}
+
+.nav-avatar:hover {
+  border-color: var(--primary);
+}
+
+.nav-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* ============================================================
+   4. BOTÃO ÍCONE (reutilizável em nav, lightbox, etc.)
+   ============================================================ */
+.btn-icon {
+  width: 38px;
+  height: 38px;
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-primary);
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  transition: background var(--transition-fast), color var(--transition-fast),
+              transform var(--transition-fast);
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.btn-icon:hover {
+  background: var(--surface-3);
+  transform: scale(1.06);
+}
+
+.btn-icon ion-icon {
+  font-size: 18px;
+  pointer-events: none;
+}
+
+.btn-icon-sm {
+  width: 30px;
+  height: 30px;
+  border-radius: var(--radius-sm);
+}
+
+.btn-icon-sm ion-icon {
+  font-size: 15px;
+}
+
+/* Ícone sol/lua — estado inicial controlado por JS */
+.sun-icon { display: block; }
+.moon-icon { display: none; }
+
+/* ============================================================
+   5. BANNER DE INSTRUÇÃO DE DRAG & DROP
+   ============================================================ */
+.drag-banner {
+  position: fixed;
+  top: var(--nav-height);
+  inset-inline: 0;
+  z-index: 990;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  height: var(--banner-height);
+  background: linear-gradient(90deg, var(--primary-dark), var(--primary));
+  color: #fff;
+  font-size: 13px;
+  font-weight: 500;
+  padding: 0 16px;
+  animation: slideDown var(--transition-slow) both;
+}
+
+.drag-banner ion-icon {
+  font-size: 18px;
+  color: #fff;
+  flex-shrink: 0;
+}
+
+.drag-banner.hidden {
   display: none;
 }
 
-nav a {
-  color: var(--text-secondary);
-  font-weight: 500;
-  transition: color 0.3s ease;
-  font-size: 16px;
+/* Quando o banner está visível, empurra o conteúdo para baixo */
+body.banner-visible {
+  padding-top: calc(var(--nav-height) + var(--banner-height));
 }
 
-nav a.active {
-  color: var(--text-primary);
+@keyframes slideDown {
+  from { transform: translateY(-100%); opacity: 0; }
+  to   { transform: translateY(0);     opacity: 1; }
 }
 
-nav a:hover {
-  color: var(--text-primary);
+/* ============================================================
+   6. GALERIA PRINCIPAL (Masonry)
+   ============================================================ */
+.gallery-main {
+  min-height: calc(100vh - var(--nav-height) - var(--footer-height));
+  padding: 24px 0 32px;
 }
 
-nav a span {
-  height: 3px;
-  background: var(--primary-color);
-  bottom: -2px;
-}
-
-.gallery {
-  /* Removido padding, margin */
-  /* Utilizado utilitários Bootstrap no HTML */
+.gallery-container {
   max-width: 1600px;
+  margin: 0 auto;
+  padding: 0 16px;
 }
 
-.gallery .container-fluid {
-  padding: 0;
+/* Cabeçalho da seção (título + filtros) */
+.gallery-header {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-bottom: 20px;
 }
 
-.gallery img {
-  /* Removido width, border-radius, margin-bottom */
-  /* Utilizado utilitários Bootstrap no HTML */
-  transition: transform 0.3s ease;
-  cursor: zoom-in;
-  background: var(--surface);
-  box-shadow: 0 8px 32px var(--shadow);
+.gallery-title {
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--text-primary);
+  flex-shrink: 0;
+}
+
+/* Chips de filtro */
+.gallery-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.filter-chip {
+  padding: 6px 16px;
+  border-radius: var(--radius-full);
+  font-size: 13px;
+  font-weight: 500;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  color: var(--text-secondary);
+  transition: background var(--transition-fast), color var(--transition-fast),
+              border-color var(--transition-fast);
+  cursor: pointer;
+}
+
+.filter-chip:hover {
+  background: var(--surface-3);
+  color: var(--text-primary);
+}
+
+.filter-chip.active {
+  background: var(--primary);
+  border-color: var(--primary);
+  color: #fff;
+}
+
+/* Grid masonry */
+.masonry-grid {
+  /* O Masonry.js controla o posicionamento; aqui apenas negamos o margin colapso */
+}
+
+/* Coluna masonry */
+.masonry-item {
+  width: calc(25% - 12px);
+  margin-bottom: 16px;
+  transition: opacity var(--transition-base);
+}
+
+.masonry-item.hidden {
+  display: none;
+}
+
+/* ---- PIN CARD ---- */
+.pin-card {
+  background: var(--card-bg);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+  transition: box-shadow var(--transition-base), transform var(--transition-base);
+  cursor: pointer;
+}
+
+.pin-card:hover {
+  box-shadow: var(--shadow-md);
+  transform: translateY(-2px);
+}
+
+.pin-img-wrap {
   position: relative;
   overflow: hidden;
+  background: var(--surface-3);
 }
 
-.gallery img:hover {
-  transform: scale(1.02);
+/* Placeholder de carregamento */
+.pin-img-wrap::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    110deg,
+    var(--surface-3) 40%,
+    var(--shimmer) 50%,
+    var(--surface-3) 60%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.6s infinite;
+  z-index: 0;
 }
 
-footer {
-  /* Removido display, justify-content, align-items, gap, padding, position, border-top, background, backdrop-filter */
-  /* Utilizado utilitários Bootstrap no HTML */
-  height: 72px;
+.pin-img {
+  width: 100%;
+  height: auto;
+  display: block;
+  position: relative;
+  z-index: 1;
+  transition: transform var(--transition-slow);
 }
 
-ion-icon {
-  color: var(--text-secondary);
-  transition: all 0.3s ease;
+.pin-img.loaded + .pin-overlay,
+.pin-img-wrap:hover .pin-img {
+  transform: scale(1.04);
 }
 
-ion-icon:hover {
-  color: var(--text-primary);
+/* Overlay com ações */
+.pin-overlay {
+  position: absolute;
+  inset: 0;
+  background: var(--overlay-bg);
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-end;
+  gap: 8px;
+  padding: 10px;
+  opacity: 0;
+  transition: opacity var(--transition-fast);
+  z-index: 2;
+}
+
+.pin-img-wrap:hover .pin-overlay {
+  opacity: 1;
+}
+
+/* Botão de ação no overlay */
+.pin-action {
+  width: 34px;
+  height: 34px;
+  border-radius: var(--radius-md);
+  background: rgba(255,255,255,.2);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255,255,255,.25);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background var(--transition-fast), transform var(--transition-fast);
+  cursor: pointer;
+}
+
+.pin-action:hover {
+  background: var(--primary);
   transform: scale(1.1);
 }
 
-footer img {
-  /* Removido width, height, border, transition */
-  /* Utilizado utilitários Bootstrap no HTML */
+.pin-action ion-icon {
+  font-size: 16px;
+  pointer-events: none;
+  color: #fff;
 }
 
-footer img:hover {
-  /* ...existing code... */
+/* Indicação visual no botão de arrastar */
+.pin-action-drag {
+  cursor: grab;
 }
 
-/* Efeito de loading nas imagens */
-
-.gallery img::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(120deg,
-      transparent 40%,
-      var(--shimmer-color) 50%,
-      transparent 60%);
-  animation: shimmer 1.5s infinite;
+.pin-action-drag:active {
+  cursor: grabbing;
 }
 
-.dark-mode .gallery img::after {
-  --shimmer-color: rgba(255, 255, 255, 0.05);
+/* Informações abaixo da imagem */
+.pin-info {
+  padding: 10px 12px 12px;
 }
 
-.light-mode .gallery img::after {
-  --shimmer-color: rgba(0, 0, 0, 0.05);
+.pin-tag {
+  font-size: 10px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: .6px;
+  color: var(--primary);
+  background: rgba(230,0,35,.1);
+  padding: 2px 7px;
+  border-radius: var(--radius-sm);
+}
+
+.pin-title {
+  margin-top: 6px;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text-secondary);
+  line-height: 1.4;
 }
 
 @keyframes shimmer {
-  0% {
-    transform: translateX(-100%);
-  }
-  100% {
-    transform: translateX(100%);
-  }
+  to { background-position: 200% center; }
 }
 
-.gallery img.loaded::after {
+/* ============================================================
+   7. IMAGEM FLUTUANTE (DRAG & DROP)
+   Quando uma imagem está sendo arrastada pelo usuário ela é
+   duplicada como um elemento fixo sobre todo o conteúdo.
+   ============================================================ */
+.draggable-img {
+  cursor: grab;
+  /* O grab só aparece sobre a própria imagem, não no card */
+}
+
+.draggable-img:active {
+  cursor: grabbing;
+}
+
+/* Clone flutuante criado pelo DragManager */
+.floating-img {
+  position: fixed;
+  z-index: 9000;
+  pointer-events: none;       /* Não bloqueia eventos durante arrasto */
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-xl);
+  opacity: .92;
+  transform: scale(1.06) rotate(1.5deg);
+  transition: transform var(--transition-fast), opacity var(--transition-fast);
+  will-change: left, top;
+  cursor: grabbing;
+  max-width: 280px;
+  max-height: 400px;
+  object-fit: cover;
+}
+
+/* Quando solta a imagem — animação de retorno */
+.floating-img.dropping {
+  opacity: 0;
+  transform: scale(.9);
+  transition: opacity 200ms ease, transform 200ms ease;
+  pointer-events: none;
+}
+
+/* Imagem original fica "fantasma" enquanto está sendo arrastada */
+.draggable-img.dragging {
+  opacity: .25;
+  cursor: grabbing;
+}
+
+/* Imagem "planted" — fixada em posição pelo usuário */
+.floating-img.planted {
+  pointer-events: auto;       /* Permite re-arrastar após soltar */
+  cursor: grab;
+  opacity: 1;
+  transform: scale(1) rotate(0);
+  transition: box-shadow var(--transition-fast), transform var(--transition-fast);
+}
+
+.floating-img.planted:hover {
+  box-shadow: 0 28px 72px rgba(0,0,0,.45);
+  transform: scale(1.02);
+}
+
+.floating-img.planted:active {
+  cursor: grabbing;
+}
+
+/* Badge de dica de re-arrasto */
+.planted-badge {
+  position: fixed;
+  z-index: 9001;
+  background: var(--primary);
+  color: #fff;
+  font-size: 10px;
+  font-weight: 700;
+  padding: 2px 7px;
+  border-radius: var(--radius-full);
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity var(--transition-fast);
+  letter-spacing: .4px;
+}
+
+/* ============================================================
+   8. LIGHTBOX
+   ============================================================ */
+.lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 8000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.lightbox[hidden] {
   display: none;
 }
 
-/* Media Queries */
-@media (min-width: 640px) {
-  nav {
-      padding: 16px 32px;
+.lightbox-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,.87);
+  cursor: pointer;
+  backdrop-filter: blur(4px);
+}
+
+.lightbox-content {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  max-width: min(92vw, 1100px);
+  max-height: 90vh;
+  animation: lightboxIn var(--transition-slow) both;
+}
+
+@keyframes lightboxIn {
+  from { opacity: 0; transform: scale(.94); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+.lightbox-img {
+  max-width: 100%;
+  max-height: 85vh;
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-xl);
+  object-fit: contain;
+  display: block;
+}
+
+.lightbox-close {
+  position: absolute;
+  top: -50px;
+  right: 0;
+  background: rgba(255,255,255,.15);
+  border: 1px solid rgba(255,255,255,.2);
+  color: #fff;
+  width: 40px;
+  height: 40px;
+}
+
+.lightbox-close:hover {
+  background: var(--primary);
+}
+
+.lightbox-nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: rgba(255,255,255,.12);
+  border: 1px solid rgba(255,255,255,.18);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background var(--transition-fast);
+  z-index: 2;
+  cursor: pointer;
+}
+
+.lightbox-nav:hover {
+  background: var(--primary);
+}
+
+.lightbox-prev { left: -60px; }
+.lightbox-next { right: -60px; }
+
+.lightbox-nav ion-icon {
+  font-size: 22px;
+  color: #fff;
+  pointer-events: none;
+}
+
+/* ============================================================
+   9. TOAST / NOTIFICAÇÃO
+   ============================================================ */
+.toast-container {
+  position: fixed;
+  bottom: calc(var(--footer-height) + 16px);
+  right: 20px;
+  z-index: 9500;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  pointer-events: none;
+}
+
+.toast {
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  color: var(--text-primary);
+  border-radius: var(--radius-md);
+  padding: 12px 18px;
+  font-size: 13px;
+  font-weight: 500;
+  box-shadow: var(--shadow-md);
+  pointer-events: auto;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  animation: toastIn 250ms both;
+  min-width: 220px;
+  max-width: 320px;
+}
+
+.toast.removing {
+  animation: toastOut 250ms both;
+}
+
+.toast ion-icon {
+  font-size: 16px;
+  flex-shrink: 0;
+}
+
+.toast--success ion-icon { color: #22c55e; }
+.toast--error   ion-icon { color: #ef4444; }
+.toast--info    ion-icon { color: #3b82f6; }
+
+@keyframes toastIn {
+  from { opacity: 0; transform: translateX(24px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes toastOut {
+  to { opacity: 0; transform: translateX(24px); }
+}
+
+/* ============================================================
+   10. RODAPÉ INFERIOR FIXO
+   ============================================================ */
+#main-footer {
+  position: fixed;
+  inset-inline: 0;
+  bottom: 0;
+  height: var(--footer-height);
+  background: var(--footer-bg);
+  backdrop-filter: blur(16px) saturate(180%);
+  -webkit-backdrop-filter: blur(16px) saturate(180%);
+  border-top: 1px solid var(--border);
+  z-index: 1000;
+  transition: background var(--transition-slow), border-color var(--transition-slow);
+}
+
+.footer-nav {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  height: 100%;
+  max-width: 480px;
+  margin: 0 auto;
+  padding: 0 16px;
+}
+
+.footer-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+  padding: 6px 14px;
+  border-radius: var(--radius-md);
+  font-size: 10px;
+  font-weight: 500;
+  color: var(--text-muted);
+  background: none;
+  border: none;
+  cursor: pointer;
+  transition: color var(--transition-fast), background var(--transition-fast),
+              transform var(--transition-fast);
+  text-decoration: none;
+  min-width: 52px;
+}
+
+.footer-item:hover {
+  color: var(--text-primary);
+  background: var(--surface-3);
+}
+
+.footer-item.active {
+  color: var(--primary);
+}
+
+.footer-item ion-icon {
+  font-size: 22px;
+  color: inherit;
+}
+
+/* Botão de adicionar — destaque circular */
+.footer-add {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: var(--primary);
+  color: #fff !important;
+  min-width: unset;
+  padding: 0;
+  box-shadow: 0 4px 14px rgba(230,0,35,.4);
+  transition: transform var(--transition-fast), box-shadow var(--transition-fast),
+              background var(--transition-fast);
+}
+
+.footer-add:hover {
+  background: var(--primary-light) !important;
+  transform: scale(1.08);
+  box-shadow: 0 6px 20px rgba(230,0,35,.5);
+}
+
+.footer-add ion-icon {
+  font-size: 26px;
+}
+
+/* Avatar no rodapé */
+.footer-avatar {
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid var(--border);
+}
+
+/* ============================================================
+   11. CALCULADORA
+   ============================================================ */
+.calc-main {
+  min-height: calc(100vh - var(--nav-height) - var(--footer-height));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 32px 16px;
+}
+
+.calc-wrapper {
+  display: flex;
+  align-items: flex-start;
+  gap: 20px;
+  width: 100%;
+  max-width: 840px;
+}
+
+/* Cartão da calculadora */
+.calc-card {
+  flex: 0 0 360px;
+  background: var(--surface);
+  border-radius: var(--radius-xl);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-lg);
+  padding: 24px 20px 20px;
+  transition: background var(--transition-slow), border-color var(--transition-slow);
+}
+
+/* Cabeçalho */
+.calc-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 16px;
+}
+
+.calc-header ion-icon {
+  font-size: 24px;
+  color: var(--primary);
+}
+
+.calc-title {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--text-primary);
+  flex: 1;
+}
+
+/* Visor */
+.calc-display-wrap {
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 12px 16px;
+  margin-bottom: 16px;
+  text-align: right;
+  min-height: 80px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  transition: background var(--transition-slow);
+}
+
+.calc-expr {
+  font-size: 12px;
+  color: var(--text-muted);
+  min-height: 18px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.calc-display {
+  font-size: 36px;
+  font-weight: 700;
+  color: var(--text-primary);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  transition: color var(--transition-fast);
+}
+
+.calc-display--error {
+  color: var(--primary) !important;
+  font-size: 20px;
+}
+
+/* Área de resultado */
+.calc-result-area {
+  font-size: 12px;
+  color: var(--text-muted);
+  text-align: right;
+  margin-top: 4px;
+}
+
+/* Grade 4×5 de botões */
+.calc-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+}
+
+/* Botão base */
+.calc-btn {
+  height: 60px;
+  border-radius: var(--radius-md);
+  font-size: 18px;
+  font-weight: 600;
+  cursor: pointer;
+  border: 1px solid var(--border);
+  transition: background var(--transition-fast), transform var(--transition-fast),
+              box-shadow var(--transition-fast);
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.calc-btn:hover {
+  filter: brightness(1.12);
+}
+
+.calc-btn--pressed {
+  transform: scale(.94);
+}
+
+/* Numéricos */
+.calc-btn-num {
+  background: var(--surface-2);
+  color: var(--text-primary);
+}
+
+.calc-btn-num:hover {
+  background: var(--surface-3);
+}
+
+/* Funções (C, DEL, +/−, %) */
+.calc-btn-fn {
+  background: var(--surface-3);
+  color: var(--text-primary);
+}
+
+/* Operadores */
+.calc-btn-op {
+  background: rgba(230,0,35,.12);
+  color: var(--primary-light);
+  border-color: rgba(230,0,35,.18);
+  font-size: 22px;
+}
+
+.calc-btn-op:hover {
+  background: rgba(230,0,35,.22);
+}
+
+/* Igual */
+.calc-btn-eq {
+  background: var(--primary);
+  color: #fff;
+  border-color: var(--primary-dark);
+  box-shadow: 0 3px 12px rgba(230,0,35,.3);
+}
+
+.calc-btn-eq:hover {
+  background: var(--primary-light);
+  box-shadow: 0 5px 18px rgba(230,0,35,.45);
+}
+
+/* Painel de histórico */
+.calc-history-panel {
+  flex: 1;
+  background: var(--surface);
+  border-radius: var(--radius-xl);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-md);
+  padding: 16px;
+  max-height: 520px;
+  overflow-y: auto;
+  transition: background var(--transition-slow);
+}
+
+.calc-history-panel[hidden] {
+  display: none;
+}
+
+.calc-history-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.calc-history-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.calc-history-empty {
+  font-size: 13px;
+  color: var(--text-muted);
+  text-align: center;
+  padding: 20px 0;
+}
+
+.calc-history-item {
+  display: flex;
+  flex-direction: column;
+  padding: 10px 12px;
+  background: var(--surface-2);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border);
+  cursor: pointer;
+  transition: background var(--transition-fast);
+}
+
+.calc-history-item:hover {
+  background: var(--surface-3);
+}
+
+.calc-history-expr {
+  font-size: 11px;
+  color: var(--text-muted);
+}
+
+.calc-history-res {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+/* ============================================================
+   12. MEDIA QUERIES — Responsividade
+   ============================================================ */
+
+/* Telas médias (tablets) */
+@media (max-width: 1024px) {
+  .masonry-item {
+    width: calc(33.333% - 11px);
+  }
+
+  .nav-search {
+    max-width: 260px;
   }
 }
 
-@media (min-width: 768px) {
-  nav a {
-      font-size: 17px;
+/* Telas pequenas (smartphones grandes) */
+@media (max-width: 768px) {
+  :root {
+    --nav-height: 60px;
+  }
+
+  .masonry-item {
+    width: calc(50% - 8px);
+  }
+
+  .nav-search {
+    display: none;
+  }
+
+  .nav-brand-text {
+    display: none;
+  }
+
+  .nav-link span {
+    display: none;
+  }
+
+  .nav-link {
+    padding: 8px;
+  }
+
+  .lightbox-prev { left: -48px; }
+  .lightbox-next { right: -48px; }
+
+  .calc-wrapper {
+    flex-direction: column;
+  }
+
+  .calc-card {
+    flex: none;
+    width: 100%;
+  }
+
+  .calc-history-panel {
+    width: 100%;
   }
 }
 
-@media (min-width: 1024px) {
-  .gallery img {
-      border-radius: 20px;
+/* Smartphones pequenos */
+@media (max-width: 480px) {
+  .masonry-item {
+    width: 100%;
   }
+
+  .gallery-title {
+    font-size: 18px;
+  }
+
+  .calc-display {
+    font-size: 28px;
+  }
+
+  .calc-btn {
+    height: 52px;
+    font-size: 16px;
+  }
+
+  .floating-img {
+    max-width: 200px;
+  }
+
+  .lightbox-prev { left: 4px; }
+  .lightbox-next { right: 4px; }
 }
 
-@media (min-width: 1280px) {
-  body {
-      padding-left: 80px;
-      padding-right: 80px;
-  }
+/* ============================================================
+   13. SCROLLBAR CUSTOMIZADA
+   ============================================================ */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--surface-3);
+  border-radius: var(--radius-full);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--text-muted);
+}
+
+/* ============================================================
+   14. UTILITÁRIOS
+   ============================================================ */
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0,0,0,0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Foco acessível visível */
+:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
 }
